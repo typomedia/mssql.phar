@@ -4,6 +4,7 @@ namespace mssql\Command;
 
 use PDO;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -48,7 +49,7 @@ class QueryCommand extends Command
                 'Q',
                 InputOption::VALUE_OPTIONAL,
                 'Query',
-                "SELECT name FROM master.dbo.sysdatabases WHERE name NOT IN ('master', 'tempdb', 'model', 'msdb')"
+                "SELECT name, filename FROM master.dbo.sysdatabases WHERE name NOT IN ('master', 'tempdb', 'model', 'msdb')"
             )
             ->addOption(
                 'file',
@@ -81,14 +82,15 @@ class QueryCommand extends Command
 
         $stmt = $pdo->query($query);
         $results = $stmt->fetchAll();
+        $count = $stmt->rowCount();
 
-        foreach ($results as $result) {
-            $output->writeln('<fg=blue>' . implode(' ', $result) . '</>');
-        }
+        $table = new Table($output);
+        $table->setRows($results);
+        $table->render();
 
         $end  = microtime(true);
         $time = round(($end - $start));
 
-        $output->writeln('<info>Execution time: ' . $time . ' s</info>');
+        $output->writeln("<info>($count rows affected in $time s)</info>");
     }
 }
