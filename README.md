@@ -1,6 +1,6 @@
 # mssql
 
-Simple Microsoft SQL Console Client. Rudimental implementation of `sqlcmd` in pure PHP.
+Simple Microsoft SQL Console Client. Basic implementation of `sqlcmd` in pure PHP.
 
 ## Download
 
