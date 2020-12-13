@@ -6,7 +6,7 @@ require __DIR__.'/../vendor/autoload.php';
 use mssql\Command;
 use Symfony\Component\Console\Application;
 
-$application = new Application('mssql', '1.0.0');
+$application = new Application('mssql', '1.1.0');
 $application->add(new Command\QueryCommand());
 $application->add(new Command\ExecCommand());
 $application->run();
