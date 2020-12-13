@@ -33,7 +33,7 @@ Simple Microsoft SQL Console Client written in PHP.
     | demo_master | /var/opt/mssql/data/demo_master.mdf |
     | test_master | /var/opt/mssql/data/test_master.mdf |
     +-------------+-------------------------------------+
-    (1 rows affected in 0 s)
+    (2 rows affected in 0 s)
 
     # specific query on specific host
     php mssql.phar query --host mssql.example.local --user sa --pass ******** --query "SELECT name FROM master.dbo.sysdatabases"
