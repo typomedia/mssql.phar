@@ -28,9 +28,12 @@ Simple Microsoft SQL Console Client written in PHP.
     # default query shows all databases on localhost
     php mssql.phar query --user sa --pass ********
     
-    mssql@1.0.0 by Typomedia Foundation, Philipp Speck
-    demo_master
-    test_master
+    mssql@1.1.0 by Typomedia Foundation, Philipp Speck
+    +-------------+-------------------------------------+
+    | demo_master | /var/opt/mssql/data/demo_master.mdf |
+    | test_master | /var/opt/mssql/data/test_master.mdf |
+    +-------------+-------------------------------------+
+    (1 rows affected in 0 s)
 
     # specific query on specific host
     php mssql.phar query --host mssql.example.local --user sa --pass ******** --query "SELECT name FROM master.dbo.sysdatabases"
