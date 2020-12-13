@@ -13,6 +13,7 @@ use Exception;
 class ExecCommand extends Command
 {
     private $pdo;
+    private $output;
 
     protected function configure()
     {
@@ -72,6 +73,7 @@ class ExecCommand extends Command
     {
         $start = microtime(true);
         $options = $input->getOptions();
+        $this->output = $output;
 
         $output->writeln($this->getApplication()->getName() .  '@' . $this->getApplication()->getVersion() . ' by Typomedia Foundation, Philipp Speck');
 
@@ -80,7 +82,7 @@ class ExecCommand extends Command
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $query = $options['file'] ? file_get_contents($options['file']) : $options['query'];
-        $this->exec($query, $output);
+        $this->exec($query);
 
         $end  = microtime(true);
         $time = round(($end - $start));
@@ -90,14 +92,13 @@ class ExecCommand extends Command
 
     /**
      * @param string $query
-     * @param object $output
      */
-    private function exec($query, $output)
+    private function exec($query)
     {
         try {
             $this->pdo->exec($query);
         } catch (PDOException $e) {
-            $output->writeln('<error>' . $e->getMessage() . '</error>');
+            $this->output->writeln('<error>' . $e->getMessage() . '</error>');
             exit(1);
         }
     }
